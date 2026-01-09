@@ -45,3 +45,75 @@ Then, old factory macros has been replaced by the new ones, and then the changes
 > 
 > ```[include ./knomi/*.*]  # Opens access to klipper to use everithing inside the folder knomi ```
 
+> [!NOTE]
+> As an example I'm reproducing here, what I have inside my knomy.cfg, as you could see, I was prepared the new macros, including the calls to other macros, to do in my printer what I expect to be done, every time I generate a Knomi order.
+> 
+> Here you have the knomi.cfg I was prepared, and I'm using, in the whole of my machines running Knomi:
+>
+> ```
+>[gcode_macro _KNOMI_STATUS] # Internal original Knomi macros you must include
+>description: Just fot internal Knomi use
+>variable_homing: False
+>variable_probing: False
+>variable_qgling: False
+>variable_heating_nozzle: False
+>variable_heating_bed: False
+>gcode:
+>  M118 Status desde Knomi
+>  M117 Status desde Knomi
+>
+>
+>[gcode_macro KNOMI_G28] # Used to make Home in your machine
+>description: Captures the homing orders from knomi, you must include here, in the below lines, your orders to make home at your machine.
+>gcode:
+>  SET_GCODE_VARIABLE MACRO=_KNOMI_STATUS VARIABLE=homing VALUE=True
+>  M118 Centrado desde Knomi
+>  M117 Centrado desde Knomi
+>  CENTRADO
+>  SET_GCODE_VARIABLE MACRO=_KNOMI_STATUS VARIABLE=homing VALUE=False
+>
+> 
+>[gcode_macro KNOMI_BED_MESH] # used to make bed leveling in your machine
+>description: Captures the bed mesh orders from knomi, of course in the below lines you must include your orders to make bed mesh adj. at your machine
+>gcode:
+>  SET_GCODE_VARIABLE MACRO=_KNOMI_STATUS VARIABLE=probing VALUE=True
+>  M118 Calibrar cama desde Knomi
+>  M117 Calibrar cama desde Knomi
+>  Leveling_Bed
+>  SET_GCODE_VARIABLE MACRO=_KNOMI_STATUS VARIABLE=probing VALUE=False
+>
+>[gcode_macro KNOMI_GANTRY_LEVEL] # Used to warrant gantry leveling in your machine, a good idea is to make a Gantry level adjust
+>description: Captures the bed leveling orders from knomi, you could use it to make Z-tilt, or any other way to make gantry leveling you want, just changing the lines below
+>gcode:
+>  SET_GCODE_VARIABLE MACRO=_KNOMI_STATUS VARIABLE=qgling VALUE=True
+>  M118 Ajuste horizontal desde Knomi
+>  M117 Ajuste horizontal desde Knomi
+>  NIVELACION_HORIZONTAL
+>  SET_GCODE_VARIABLE MACRO=_KNOMI_STATUS VARIABLE=qgling VALUE=False
+>  
+> ```
+
+
+> [!NOTE]
+> For more information you can contact me here:
+> 
+> https://t.me/escrich
+>
+> https://www.tiktok.com/@josemescrich
+>
+> https://www.youtube.com/@josem.escrich2610
+>
+> https://www.printables.com/@Escrich
+>
+> https://www.github.com/escrich
+
+<br>
+<br>
+
+
+  
+  
+
+
+
+
